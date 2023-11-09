@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 type Falsy = null | undefined
 
@@ -10,6 +10,19 @@ interface Props {
 
 export const ActivePortalProvider = ({ ...props }: Props) => {
     const activePortal = useState<string | Falsy>(null)
+
+    const [ _, setActivePortal ] = activePortal
+    const handleEscapeKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+            setActivePortal(null)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("keyup", handleEscapeKey)
+
+        return () => window.removeEventListener("keyup", handleEscapeKey)
+    }, [])
 
     return (
         <ActivePortalContext.Provider value={activePortal}>
