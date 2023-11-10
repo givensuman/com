@@ -1,4 +1,5 @@
 import * as THREE from "three"
+import { Model as Piano } from "../models/Piano"
 
 export default function Demo() {
   return (
@@ -7,10 +8,7 @@ export default function Demo() {
         <meshBasicMaterial color="blue" side={THREE.DoubleSide} />
         <sphereGeometry args={[64, 64, 64]} />
       </mesh>
-      <mesh>
-        <meshStandardMaterial color="pink" />
-        <boxGeometry args={[0.25, 0.25, 0.25]} />
-      </mesh>
+      <Piano scale={0.025} />
     </group>
   )
 }
