@@ -18,13 +18,15 @@ export default function Portal({
     const [activePortal, setActivePortal] = useActivePortal()
     const portalRef = useRef<PortalMaterialType | null>(null)
 
-    useFrame((_, delta) => easing.damp(portalRef.current as object, 'blend', name === activePortal ? 1 : 0, 0.25, delta))
+    useFrame((_, delta) => easing.damp(portalRef.current as object, 'blend', name === activePortal ? 1 : 0, 0.125, delta))
 
     return (
         <RoundedBox args={[1, 2, 0.01]} onClick={() => setActivePortal(name)} {...props}>
             <MeshPortalMaterial ref={portalRef} side={THREE.DoubleSide}>
                 <Environment preset={preset} />
-                {props.children}
+                <group scale={name === activePortal ? 1 : 0.1}>
+                    {props.children}
+                </group>
             </MeshPortalMaterial>
         </RoundedBox>
     )
